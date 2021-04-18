@@ -21,7 +21,7 @@ conda install -c conda-forge pyautogui
 
 ### How it works
 Target window video recording algorithm:
-- scince we can record only specific rectangle on our screen, first we obtain target window position and it's width and height for defining this rectangle
+- scince we can record only specific rectangle on our screen, first we obtain target window position and it's width and height for defining rectangle corresponding to the target window
 - next we define condition for stopping video recording, in our case we will record target window until it exist
 - video recording implemented as cycle, where on each iteration we perform next steps:
     - checking target window exist
@@ -29,10 +29,9 @@ Target window video recording algorithm:
     - making screenshot
 - lastly we compile all screenshots in a video file
 
-bring window to the front (if not), and get screenshot
-size and position of the target window is calculated only in first time
-
-problem: frequent bringing window to front may interferes with your work on computer
+So this algorithm produces next features:
+- since position and size of the target window is calculated only on the preparation step => if some of these parameters will change during recording, we will get video with grabage content
+- frequent system calls for bringing window to the front may interferes with user's work on computer
 
 ### Current problems to solve:
 - very slow screenshot rate? Need to find library for getting screenshots faster than pyautogui?
