@@ -34,8 +34,10 @@ def correct_geometry(left, top, width, height):
     return (
         left * scale_factor + deviations['left'],
         top * scale_factor + deviations['top'] + deviations['top_bar'],
+        # width,
         width + deviations['width'],
-        height + deviations['height']
+        # height,
+        height + deviations['height'],
     )
 
 
@@ -58,6 +60,10 @@ def get_window_info(window_idx):
             return line
     print('Error: no window containing identifier %s was found!' % window_idx)
     return None
+
+
+def get_window_id(window_name):
+    return get_window_info(window_name).split()[0]
 
 
 # function for getting window geometry

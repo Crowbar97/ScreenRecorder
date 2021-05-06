@@ -1,6 +1,6 @@
 import cv2
+import mss
 import numpy as np
-import pyautogui
 from time import time
 
 
@@ -25,21 +25,22 @@ def record_frame(left, top, width, height,
     print('Recording...')
 
     # while condition is True
-    frame_id = 1
-    while condition_callback():
-        print('frame id: %s' % frame_id)
-        frame_id += 1
-        # making specified action
-        if action_callback:
-            action_callback()
-        # make a screenshot
-        img = pyautogui.screenshot(region=(left, top, width, height))
-        # convert these pixels to a proper numpy array to work with OpenCV
-        frame = np.array(img)
-        # convert colors from BGR to RGB
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        # write the frame
-        writer.write(frame)
+    with mss.mss() as sct:
+        frame_id = 1
+        while condition_callback():
+            print('frame id: %s' % frame_id)
+            frame_id += 1
+            # making specified action
+            if action_callback:
+                action_callback()
+            # make a screenshot
+            region = {'top': int(top), 'left': int(left), 'width': int(width), 'height': int(height)}
+            print(region)
+            img = sct.grab(region)
+            # convert these pixels to a proper numpy array to work with OpenCV
+            frame = np.array(img)
+            # write the frame
+            writer.write(frame)
 
     # make sure everything is closed when exited
     cv2.destroyAllWindows()
