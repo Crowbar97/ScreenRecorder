@@ -23,7 +23,6 @@ Under the hood `window_recorder.py` uses system calls of the `import` utility to
 
 
 ### Upcoming tasks:
-- make implementation for `Windows` system
 - try to speed up current implementation for better FPS
 
 
